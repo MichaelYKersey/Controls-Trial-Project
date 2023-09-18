@@ -3,9 +3,9 @@
 Servo gimbalServo;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600);// Bit send rate for Serial port
   Serial.println("Start Program");
-  gimbalServo.attach(2);
+  gimbalServo.attach(5);
   gimbalServo.write(90);
 }
 
