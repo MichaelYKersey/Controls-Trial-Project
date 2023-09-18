@@ -1,10 +1,15 @@
+#include <Servo.h>
+
+Servo gimbalServo;
+
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
   Serial.println("Start Program");
+  gimbalServo.attach(2);
+  gimbalServo.write(90);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  
+  int pos = 90;// TODO update servo based on MPU
+  gimbalServo.write(pos);
 }
