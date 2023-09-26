@@ -14,7 +14,7 @@ const byte kTempetureRegesterAdress = 0x41;
 const byte kXGyroOutAdress = 0x43;
 const byte kGyroConfigAdress = 0x1B;
 const byte kGyroConfig = 0 << 3;
-const double kGyroBitsToDegPerSec = 2/131.0; //131 is the LSB/deg/sec for The Gyro
+const double kGyroBitsToDegPerSec = 1/131.0; //131 is the LSB/deg/sec for The Gyro
 
 void setup() {
   Serial.begin(9600);// Bit send rate for Serial port
