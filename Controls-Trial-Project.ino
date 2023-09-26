@@ -6,6 +6,7 @@ const int kServoPort = 5;
 
 const byte kMPUAdress = 0x68;
 const byte kTempetureRegesterAdress = 0x41;
+const byte kXGyroAdress = 0x43;
 
 void setup() {
   Serial.begin(9600);// Bit send rate for Serial port
