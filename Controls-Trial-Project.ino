@@ -33,12 +33,13 @@ void loop() {
   int pos = 90;// TODO update servo based on MPU
   gimbalServo.write(pos);
   updateRoll();
-  if (i * 1000 < millis()) {
+  if (i==10000) {
     Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
     Serial.println("XGyro:"+ (String)(getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec));
     Serial.println("Roll:"+ (String)(rollDeg));
-    i++;
+    i=0;
   }
+  i++;
 }
 
 void updateRoll() {
