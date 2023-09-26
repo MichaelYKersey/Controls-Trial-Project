@@ -6,13 +6,22 @@ const int kServoPort = 5;
 
 const byte kMPUAdress = 0x68;
 const byte kTempetureRegesterAdress = 0x41;
-const byte kXGyroAdress = 0x43;
+
+const byte kXGyroOutAdress = 0x43;
+const byte kGyroConfigAdress = 0x1B;
+const byte kGyroConfig = 0 << 3;
 
 void setup() {
   Serial.begin(9600);// Bit send rate for Serial port
   Serial.println("Start Program");
   gimbalServo.attach(kServoPort);//make servo
   gimbalServo.write(90);// reset servo to middle
+
+  //config MPU
+  Wire.write(kMPUAdress);
+  Wire.write(kGyroConfigAdress);
+  Wire.write(kGyroConfig);
+  Wire.endTransmission(true);
 }
 
 void loop() {
