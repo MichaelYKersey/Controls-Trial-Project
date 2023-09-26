@@ -4,6 +4,10 @@
 Servo gimbalServo;
 const int kServoPort = 5;
 
+int prevTime = -1;
+double rollDeg = 0;
+int i=0;
+
 const byte kMPUAdress = 0x68;
 const byte kTempetureRegesterAdress = 0x41;
 
@@ -28,9 +32,25 @@ void setup() {
 void loop() {
   int pos = 90;// TODO update servo based on MPU
   gimbalServo.write(pos);
-  delay(1000);
-  // Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
-  Serial.println("XGyro:"+ (String)(getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec));
+  updateRoll();
+  if (i * 1000 < millis()) {
+    Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
+    Serial.println("XGyro:"+ (String)(getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec));
+    Serial.println("Roll:"+ (String)(rollDeg));
+    i++;
+  }
+}
+
+void updateRoll() {
+  if (prevTime == -1) {
+    prevTime = millis();
+    return;
+  }
+  int time = millis();
+  double timeDeltaSec = (time - prevTime) / 1000.0; // diffrence in time in seconds
+  double rollVel = getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec;
+  rollDeg += rollVel * timeDeltaSec;
+  prevTime = time;
 }
 
 int getDPMData(byte dataAdrees, int bytesRequested) {
