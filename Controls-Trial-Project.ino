@@ -14,6 +14,7 @@ const byte kTempetureRegesterAdress = 0x41;
 const byte kXGyroOutAdress = 0x43;
 const byte kGyroConfigAdress = 0x1B;
 const byte kGyroConfig = 0 << 3;
+const byte kPowerManagement1Adress = 0x6B;
 const double kGyroBitsToDegPerSec = 1/131.0; //131 is the LSB/deg/sec for The Gyro
 
 void setup() {
@@ -21,6 +22,12 @@ void setup() {
   Serial.println("Start Program");
   gimbalServo.attach(kServoPort);//make servo
   gimbalServo.write(90);// reset servo to middle
+
+  //wake up MPU
+  Wire.beginTransmission(kMPUAdress);
+  Wire.write(kPowerManagement1Adress);
+  Wire.write(0x00);
+  Wire.endTransmission(true);
 
   //config MPU
   Wire.write(kMPUAdress);
@@ -43,10 +50,10 @@ void loop() {
 }
 
 void updateRoll() {
-  if (prevTime == -1) {
-    prevTime = millis();
-    return;
-  }
+  // if (prevTime == -1) {
+  //   prevTime = millis();
+  //   return;
+  // }
   int time = millis();
   double timeDeltaSec = (time - prevTime) / 1000.0; // diffrence in time in seconds
   double rollVel = getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec;
