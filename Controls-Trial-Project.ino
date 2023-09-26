@@ -10,6 +10,7 @@ const byte kTempetureRegesterAdress = 0x41;
 const byte kXGyroOutAdress = 0x43;
 const byte kGyroConfigAdress = 0x1B;
 const byte kGyroConfig = 0 << 3;
+const double kGyroBitsToDegPerSec = 2/131.0; //131 is the LSB/deg/sec for The Gyro
 
 void setup() {
   Serial.begin(9600);// Bit send rate for Serial port
@@ -27,8 +28,9 @@ void setup() {
 void loop() {
   int pos = 90;// TODO update servo based on MPU
   gimbalServo.write(pos);
-  delay(100);
-  Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
+  delay(1000);
+  // Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
+  Serial.println("XGyro:"+ (String)(getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec));
 }
 
 int getDPMData(byte dataAdrees, int bytesRequested) {
