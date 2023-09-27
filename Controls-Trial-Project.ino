@@ -13,7 +13,7 @@ const byte kTempetureRegesterAdress = 0x41;
 
 const byte kXGyroOutAdress = 0x43;
 const byte kGyroConfigAdress = 0x1B;
-const byte kGyroConfig = 0 << 3;
+const byte kGyroConfig = 0b00000000;
 const byte kPowerManagement1Adress = 0x6B;
 const double kGyroBitsToDegPerSec = 1/131.0; //131 is the LSB/deg/sec for The Gyro
 
@@ -30,7 +30,7 @@ void setup() {
   Wire.endTransmission(true);
 
   //config MPU
-  Wire.write(kMPUAdress);
+  Wire.beginTransmission(kMPUAdress);
   Wire.write(kGyroConfigAdress);
   Wire.write(kGyroConfig);
   Wire.endTransmission(true);
