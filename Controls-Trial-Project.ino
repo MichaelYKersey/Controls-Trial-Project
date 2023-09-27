@@ -29,7 +29,7 @@ void setup() {
   Wire.write(0b10000000);
   Wire.endTransmission(true);
 
-  delay(100);
+  delay(10000);
 
   //wake up MPU
   Wire.beginTransmission(kMPUAdress);
@@ -45,7 +45,10 @@ void setup() {
 }
 
 void loop() {
-  int pos = 90;// TODO update servo based on MPU
+  int pos = (int)rollDeg + 90;// TODO update servo based on MPU
+  if (pos < 0) pos=0;
+  if (pos > 180) pos=180;
+  //pos=90;
   gimbalServo.write(pos);
   updateRoll();
   if (i==10000) {
