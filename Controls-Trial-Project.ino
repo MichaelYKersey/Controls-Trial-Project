@@ -23,10 +23,18 @@ void setup() {
   gimbalServo.attach(kServoPort);//make servo
   gimbalServo.write(90);// reset servo to middle
 
+  //reset MPU
+  Wire.beginTransmission(kMPUAdress);
+  Wire.write(kPowerManagement1Adress);
+  Wire.write(0b10000000);
+  Wire.endTransmission(true);
+
+  delay(100);
+
   //wake up MPU
   Wire.beginTransmission(kMPUAdress);
   Wire.write(kPowerManagement1Adress);
-  Wire.write(0x00);
+  Wire.write(0b00000000);
   Wire.endTransmission(true);
 
   //config MPU
