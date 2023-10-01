@@ -6,7 +6,7 @@ const int kServoPort = 5;
 
 unsigned long prevTime = -1;
 double rollDeg = 0;
-int i=0;
+int iteration=0;
 
 const byte kMPUAdress = 0x68;
 const byte kTempetureRegesterAdress = 0x41;
@@ -63,13 +63,13 @@ void loop() {
   if (pos > 180) pos=180;
   //pos=90;
   gimbalServo.write(pos);
-  if (i==100) {
+  if (iteration==100) {
     // Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
     // Serial.println("XGyro:"+ (String)(getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec-drift));
     Serial.println("Roll:"+ (String)(rollDeg));
-    i=0;
+    iteration=0;
   }
-  i++;
+  iteration++;
 }
 
 void updateRoll() {
