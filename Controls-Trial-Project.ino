@@ -63,7 +63,7 @@ void loop() {
   if (pos > 180) pos=180;
   //pos=90;
   gimbalServo.write(pos);
-  if (iteration==100) {
+  if (iteration==1000) {
     // Serial.println("Temp:"+ (String)(getDPMData(kTempetureRegesterAdress,2)/340.00+36.53));
     // Serial.println("XGyro:"+ (String)(getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec-drift));
     Serial.println("Roll:"+ (String)(rollDeg));
