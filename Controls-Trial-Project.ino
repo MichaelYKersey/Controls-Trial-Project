@@ -103,7 +103,7 @@ void setDrift(){
   int count =0;
   double rollVelTotal = 0;
   // while (start + 10000 > millis()) {
-  for (int i=0; i < 1000; i++) {
+  for (int i=0; i < 5000; i++) {
     delay(3);
     rollVelTotal += getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec;
     count++;
