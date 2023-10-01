@@ -4,7 +4,7 @@
 Servo gimbalServo;
 const int kServoPort = 5;
 
-int prevTime = -1;
+unsigned long prevTime = -1;
 double rollDeg = 0;
 int i=0;
 
@@ -65,7 +65,7 @@ void updateRoll() {
   //   prevTime = millis();
   //   return;
   // }
-  int time = millis();
+  unsigned long time = millis();
   double timeDeltaSec = (time - prevTime) / 1000.0; // diffrence in time in seconds
   double rollVel = getDPMData(kXGyroOutAdress,2) * kGyroBitsToDegPerSec;
   rollDeg += rollVel * timeDeltaSec;
